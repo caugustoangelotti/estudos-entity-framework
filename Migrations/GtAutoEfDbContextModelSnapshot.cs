@@ -22,7 +22,9 @@ namespace gtauto_api.Migrations
             modelBuilder.Entity("gtauto_api.Entities.Aluguel", b =>
                 {
                     b.Property<int>("IdAluguel")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataAluguel")
                         .HasColumnType("datetime2");
@@ -55,7 +57,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 1,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 36, 50, 490, DateTimeKind.Local).AddTicks(5848),
+                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 993, DateTimeKind.Local).AddTicks(5394),
                             IdCliente = 1,
                             IdFilial = 1,
                             IdFuncionario = 2,
@@ -64,7 +66,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 2,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(5299),
+                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5578),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -73,7 +75,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 3,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(5348),
+                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5636),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -149,6 +151,9 @@ namespace gtauto_api.Migrations
 
                     b.HasKey("IdDevolucao");
 
+                    b.HasIndex("IdAluguel")
+                        .IsUnique();
+
                     b.HasIndex("IdFilial");
 
                     b.HasIndex("IdFuncionario");
@@ -159,7 +164,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdDevolucao = 1,
-                            DataDevolucao = new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(7381),
+                            DataDevolucao = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(7792),
                             IdAluguel = 2,
                             IdFilial = 1,
                             IdFuncionario = 2
@@ -167,7 +172,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdDevolucao = 2,
-                            DataDevolucao = new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(8295),
+                            DataDevolucao = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(8779),
                             IdAluguel = 3,
                             IdFilial = 2,
                             IdFuncionario = 1
@@ -568,12 +573,6 @@ namespace gtauto_api.Migrations
 
             modelBuilder.Entity("gtauto_api.Entities.Aluguel", b =>
                 {
-                    b.HasOne("gtauto_api.Entities.Devolucao", "Devolucao")
-                        .WithOne("Aluguel")
-                        .HasForeignKey("gtauto_api.Entities.Aluguel", "IdAluguel")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("gtauto_api.Entities.Cliente", "Cliente")
                         .WithMany("Alugueis")
                         .HasForeignKey("IdCliente")
@@ -601,6 +600,12 @@ namespace gtauto_api.Migrations
 
             modelBuilder.Entity("gtauto_api.Entities.Devolucao", b =>
                 {
+                    b.HasOne("gtauto_api.Entities.Aluguel", "Aluguel")
+                        .WithOne("Devolucao")
+                        .HasForeignKey("gtauto_api.Entities.Devolucao", "IdAluguel")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("gtauto_api.Entities.Filial", "Filial")
                         .WithMany("Devolucoes")
                         .HasForeignKey("IdFilial")
