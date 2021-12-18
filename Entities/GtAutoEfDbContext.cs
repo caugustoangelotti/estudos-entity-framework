@@ -18,6 +18,22 @@ namespace gtauto_api.Entities
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            #region Data Seeding
+                 
+            var seedData = new DataSeeding();
+
+            modelBuilder.Entity<Cliente>().HasData(seedData.Clientes);
+            modelBuilder.Entity<Filial>().HasData(seedData.Filiais);
+            modelBuilder.Entity<Funcionario>().HasData(seedData.Funcionarios);
+            modelBuilder.Entity<Telefone>().HasData(seedData.Telefones);
+            modelBuilder.Entity<Endereco>().HasData(seedData.Enderecos);
+            modelBuilder.Entity<Veiculo>().HasData(seedData.Veiculos);
+            modelBuilder.Entity<Aluguel>().HasData(seedData.Alugueis);
+            modelBuilder.Entity<Devolucao>().HasData(seedData.Devolucoes);
+
+            #endregion
+
             #region Endereco Relations
                  
             modelBuilder.Entity<Telefone>()
