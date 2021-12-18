@@ -84,32 +84,6 @@ namespace gtauto_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Devolucoes",
-                columns: table => new
-                {
-                    IdDevolucao = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataDevolucao = table.Column<DateTime>(nullable: false),
-                    IdAluguel = table.Column<int>(nullable: false),
-                    IdFuncionario = table.Column<int>(nullable: false),
-                    IdFilial = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devolucoes", x => x.IdDevolucao);
-                    table.ForeignKey(
-                        name: "FK_Devolucoes_Filiais_IdFilial",
-                        column: x => x.IdFilial,
-                        principalTable: "Filiais",
-                        principalColumn: "IdFilial");
-                    table.ForeignKey(
-                        name: "FK_Devolucoes_Funcionarios_IdFuncionario",
-                        column: x => x.IdFuncionario,
-                        principalTable: "Funcionarios",
-                        principalColumn: "IdFuncionario");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Enderecos",
                 columns: table => new
                 {
@@ -183,7 +157,8 @@ namespace gtauto_api.Migrations
                 name: "Alugueis",
                 columns: table => new
                 {
-                    IdAluguel = table.Column<int>(nullable: false),
+                    IdAluguel = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DataAluguel = table.Column<DateTime>(nullable: false),
                     IdVeiculo = table.Column<int>(nullable: false),
                     IdCliente = table.Column<int>(nullable: false),
@@ -193,12 +168,6 @@ namespace gtauto_api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Alugueis", x => x.IdAluguel);
-                    table.ForeignKey(
-                        name: "FK_Alugueis_Devolucoes_IdAluguel",
-                        column: x => x.IdAluguel,
-                        principalTable: "Devolucoes",
-                        principalColumn: "IdDevolucao",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Alugueis_Clientes_IdCliente",
                         column: x => x.IdCliente,
@@ -219,6 +188,38 @@ namespace gtauto_api.Migrations
                         column: x => x.IdVeiculo,
                         principalTable: "Veiculos",
                         principalColumn: "IdVeiculo");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Devolucoes",
+                columns: table => new
+                {
+                    IdDevolucao = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataDevolucao = table.Column<DateTime>(nullable: false),
+                    IdAluguel = table.Column<int>(nullable: false),
+                    IdFuncionario = table.Column<int>(nullable: false),
+                    IdFilial = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devolucoes", x => x.IdDevolucao);
+                    table.ForeignKey(
+                        name: "FK_Devolucoes_Alugueis_IdAluguel",
+                        column: x => x.IdAluguel,
+                        principalTable: "Alugueis",
+                        principalColumn: "IdAluguel",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Devolucoes_Filiais_IdFilial",
+                        column: x => x.IdFilial,
+                        principalTable: "Filiais",
+                        principalColumn: "IdFilial");
+                    table.ForeignKey(
+                        name: "FK_Devolucoes_Funcionarios_IdFuncionario",
+                        column: x => x.IdFuncionario,
+                        principalTable: "Funcionarios",
+                        principalColumn: "IdFuncionario");
                 });
 
             migrationBuilder.InsertData(
@@ -287,15 +288,11 @@ namespace gtauto_api.Migrations
             migrationBuilder.InsertData(
                 table: "Alugueis",
                 columns: new[] { "IdAluguel", "DataAluguel", "IdCliente", "IdFilial", "IdFuncionario", "IdVeiculo" },
-                values: new object[] { 3, new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(5348), 1, 2, 1, 4 });
-
-            migrationBuilder.InsertData(
-                table: "Devolucoes",
-                columns: new[] { "IdDevolucao", "DataDevolucao", "IdAluguel", "IdFilial", "IdFuncionario" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(7381), 2, 1, 2 },
-                    { 2, new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(8295), 3, 2, 1 }
+                    { 1, new DateTime(2021, 12, 17, 22, 52, 31, 993, DateTimeKind.Local).AddTicks(5394), 1, 1, 2, 6 },
+                    { 2, new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5578), 1, 2, 1, 3 },
+                    { 3, new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5636), 1, 2, 1, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -317,14 +314,14 @@ namespace gtauto_api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Alugueis",
-                columns: new[] { "IdAluguel", "DataAluguel", "IdCliente", "IdFilial", "IdFuncionario", "IdVeiculo" },
-                values: new object[] { 1, new DateTime(2021, 12, 17, 22, 36, 50, 490, DateTimeKind.Local).AddTicks(5848), 1, 1, 2, 6 });
+                table: "Devolucoes",
+                columns: new[] { "IdDevolucao", "DataDevolucao", "IdAluguel", "IdFilial", "IdFuncionario" },
+                values: new object[] { 1, new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(7792), 2, 1, 2 });
 
             migrationBuilder.InsertData(
-                table: "Alugueis",
-                columns: new[] { "IdAluguel", "DataAluguel", "IdCliente", "IdFilial", "IdFuncionario", "IdVeiculo" },
-                values: new object[] { 2, new DateTime(2021, 12, 17, 22, 36, 50, 491, DateTimeKind.Local).AddTicks(5299), 1, 2, 1, 3 });
+                table: "Devolucoes",
+                columns: new[] { "IdDevolucao", "DataDevolucao", "IdAluguel", "IdFilial", "IdFuncionario" },
+                values: new object[] { 2, new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(8779), 3, 2, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Alugueis_IdCliente",
@@ -345,6 +342,12 @@ namespace gtauto_api.Migrations
                 name: "IX_Alugueis_IdVeiculo",
                 table: "Alugueis",
                 column: "IdVeiculo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devolucoes_IdAluguel",
+                table: "Devolucoes",
+                column: "IdAluguel",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Devolucoes_IdFilial",
@@ -400,7 +403,7 @@ namespace gtauto_api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Alugueis");
+                name: "Devolucoes");
 
             migrationBuilder.DropTable(
                 name: "Enderecos");
@@ -409,16 +412,16 @@ namespace gtauto_api.Migrations
                 name: "Telefones");
 
             migrationBuilder.DropTable(
-                name: "Devolucoes");
-
-            migrationBuilder.DropTable(
-                name: "Veiculos");
+                name: "Alugueis");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Funcionarios");
+
+            migrationBuilder.DropTable(
+                name: "Veiculos");
 
             migrationBuilder.DropTable(
                 name: "Filiais");
