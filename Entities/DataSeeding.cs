@@ -382,17 +382,17 @@ namespace gtauto_api.Entities
             var d1 = new Devolucao{
                 IdDevolucao = 1,
                 DataDevolucao = DateTime.Now,
-                IdAluguel = 2,
                 IdFuncionario = 2,
-                IdFilial = 1
+                IdFilial = 1,
+                IdAluguel = 2
             };
 
             var d2 = new Devolucao{
                 IdDevolucao = 2,
                 DataDevolucao = DateTime.Now,
-                IdAluguel = 3,
                 IdFuncionario = 1,
-                IdFilial = 2
+                IdFilial = 2,
+                IdAluguel = 3
             };
 
             listaDevolucoes.Add(d1);

@@ -114,15 +114,15 @@ namespace gtauto_api.Entities
                 .HasForeignKey(f => f.IdFilial)
                 .OnDelete(DeleteBehavior.NoAction);
             
+            modelBuilder.Entity<Aluguel>()
+                .HasOne<Devolucao>(d => d.Devolucao)
+                .WithOne(a => a.Aluguel)
+                .HasForeignKey<Devolucao>(a => a.IdAluguel);
+            
             #endregion
 
             #region Devolucao Relations
             
-            modelBuilder.Entity<Devolucao>()
-                .HasOne(a => a.Aluguel)
-                .WithOne(d => d.Devolucao)
-                .HasForeignKey<Aluguel>(a => a.IdAluguel);
-                
             modelBuilder.Entity<Devolucao>()
                 .HasOne(f => f.Funcionario)
                 .WithMany(d => d.Devolucoes)
