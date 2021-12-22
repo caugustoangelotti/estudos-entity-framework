@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using gtauto_api.InputModel;
 using gtauto_api.Services;
 using gtauto_api.ViewModel;
@@ -20,6 +21,14 @@ namespace gtauto_api.Controllers
         {
             var cliente = _clienteService.AddCliente(clienteInput);
             return Ok(cliente);
+        }
+
+        [HttpGet]
+        [Route("api/v1/clientes")]
+        public ActionResult<List<ClienteBasicView>> GetClientes([FromQuery] int page = 1, [FromQuery] int count = 5)
+        {
+            var clientes = _clienteService.GetClientes(page, count);
+            return Ok(clientes);
         }
     }
 }

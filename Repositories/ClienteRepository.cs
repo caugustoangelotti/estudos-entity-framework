@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using gtauto_api.Entities;
 using gtauto_api.InputModel;
 using gtauto_api.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace gtauto_api.Repositories
 {
@@ -63,7 +66,7 @@ namespace gtauto_api.Repositories
                 enderecoCliente.Numero = endereco.Numero;
                 enderecoCliente.Cep = endereco.Cep;
                 enderecoCliente.Referencia = endereco.Referencia;
-                enderecoCliente.Complemento = endereco.Rua;
+                enderecoCliente.Complemento = endereco.Complemento;
                 clienteViewData.Enderecos.Add(enderecoCliente);
             }
 
@@ -81,6 +84,33 @@ namespace gtauto_api.Repositories
         public void Dispose()
         {
             _clienteContext.Dispose();
+        }
+
+        public List<ClienteBasicView> GetClientes(int page, int count)
+        {
+            var clientesList = _clienteContext.Clientes
+                              .AsNoTracking()
+                              .Skip((page - 1) * count)
+                              .Take(count)
+                              .ToList();
+            
+            var clientesView = new List<ClienteBasicView>();
+
+            foreach (Cliente cliente in clientesList)
+            {
+                var clienteView = new ClienteBasicView{
+                    IdCliente = cliente.IdCliente,
+                    Nome = cliente.Nome,
+                    Sobrenome = cliente.Sobrenome,
+                    DataNascimento = cliente.DataNascimento,
+                    Cpf = cliente.Cpf,
+                    Email = cliente.Email
+                };
+                
+                clientesView.Add(clienteView);
+            }
+
+            return clientesView;
         }
     }
 }
