@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace gtauto_api.Entities
 {
@@ -15,6 +16,7 @@ namespace gtauto_api.Entities
         public string Email { get; set; }
         public ICollection<Endereco> Enderecos { get; set; }
         public ICollection<Telefone> Telefones { get; set; }
+        [JsonIgnore]
         public ICollection<Aluguel> Alugueis { get; set; }
         
         public Cliente()

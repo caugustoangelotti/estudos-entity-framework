@@ -1,4 +1,7 @@
+using gtauto_api.Entities;
+using gtauto_api.InputModel;
 using gtauto_api.Repositories;
+using gtauto_api.ViewModel;
 
 namespace gtauto_api.Services
 {
@@ -9,10 +12,16 @@ namespace gtauto_api.Services
         {
             _clienteRepository = clienteRepository;
         }
-        
+
+        public ClienteView AddCliente(ClienteInput clienteInputData)
+        {
+            var cliente = _clienteRepository.AddCliente(clienteInputData);
+            return cliente;
+        }
+
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            _clienteRepository.Dispose();
         }
     }
 }
