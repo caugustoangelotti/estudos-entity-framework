@@ -32,7 +32,7 @@ namespace gtauto_api.Entities
                 IdCliente = 1, 
                 Nome = "Garry", 
                 Sobrenome = "Kasparov", 
-                DataNascimento = new DateTime(1965,01,10), 
+                DataNascimento = Convert.ToDateTime("10/01/1960"), 
                 Cpf = "09758123784", 
                 Email = "garry@mail.com"
             };
@@ -40,7 +40,7 @@ namespace gtauto_api.Entities
                 IdCliente = 2, 
                 Nome = "Anatoly", 
                 Sobrenome = "Karpov", 
-                DataNascimento = new DateTime(1960,05,21), 
+                DataNascimento = Convert.ToDateTime("05/12/1997"), 
                 Cpf = "79857403185", 
                 Email = "karpov@mail.com"
             };
@@ -83,7 +83,7 @@ namespace gtauto_api.Entities
                 IdFuncionario = 1,
                 Nome = "Mikhail",        
                 Sobrenome = "Tal",
-                DataNascimento = new DateTime(1997,12,05),
+                DataNascimento = Convert.ToDateTime("14/11/1975"),
                 Cpf = "65412387621",
                 Email = "tal@mail.com",
                 IdFilial = 2
@@ -93,7 +93,7 @@ namespace gtauto_api.Entities
                 IdFuncionario = 2,
                 Nome = "Vasyl",        
                 Sobrenome = "Ivanchuck",
-                DataNascimento = new DateTime(1968,03,10),
+                DataNascimento = Convert.ToDateTime("15/02/1979"),
                 Cpf = "97834268712",
                 Email = "ivanchuck@mail.com",
                 IdFilial = 1
