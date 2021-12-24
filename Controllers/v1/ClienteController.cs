@@ -28,7 +28,20 @@ namespace gtauto_api.Controllers
         public ActionResult<List<ClienteBasicView>> GetClientes([FromQuery] int page = 1, [FromQuery] int count = 5)
         {
             var clientes = _clienteService.GetClientes(page, count);
+
             return Ok(clientes);
+        }
+
+        [HttpGet]
+        [Route("api/v1/clientes/{idCliente:int}")]
+        public ActionResult<ClienteBasicView> GetCliente(int idCliente)
+        {
+            var cliente = _clienteService.GetCliente(idCliente);
+
+            if ( cliente == null )
+                return NotFound("Cliente não encontrado");
+
+            return Ok(cliente);
         }
     }
 }

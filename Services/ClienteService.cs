@@ -26,6 +26,14 @@ namespace gtauto_api.Services
             return listaClientes;
         }
 
+        public ClienteBasicView GetCliente(int idCliente)
+        {
+            ClienteBasicView clienteData = _clienteRepository.GetCliente(idCliente);
+            if ( clienteData == null)
+                return null;
+            return clienteData;
+        }
+
         public void Dispose()
         {
             _clienteRepository.Dispose();

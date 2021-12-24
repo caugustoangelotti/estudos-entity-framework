@@ -9,5 +9,6 @@ namespace gtauto_api.Repositories
     {
         ClienteView AddCliente(ClienteInput clienteInputData);
         List<ClienteBasicView> GetClientes(int page, int count);
+        ClienteBasicView GetCliente(int idCliente);
     }
 }

@@ -81,18 +81,13 @@ namespace gtauto_api.Repositories
             return clienteViewData;
         }
 
-        public void Dispose()
-        {
-            _clienteContext.Dispose();
-        }
-
         public List<ClienteBasicView> GetClientes(int page, int count)
         {
             var clientesList = _clienteContext.Clientes
-                              .AsNoTracking()
-                              .Skip((page - 1) * count)
-                              .Take(count)
-                              .ToList();
+                            .AsNoTracking()
+                            .Skip((page - 1) * count)
+                            .Take(count)
+                            .ToList();
             
             var clientesView = new List<ClienteBasicView>();
 
@@ -111,6 +106,31 @@ namespace gtauto_api.Repositories
             }
 
             return clientesView;
+        }
+
+        public ClienteBasicView GetCliente(int idCliente)
+        {
+            Cliente cliente = _clienteContext.Clientes
+                    .SingleOrDefault(id => id.IdCliente == idCliente);
+            
+            if ( cliente == null )
+                return null;
+
+            var clienteView = new ClienteBasicView{
+                IdCliente = cliente.IdCliente,
+                Nome = cliente.Nome,
+                Sobrenome = cliente.Sobrenome,
+                DataNascimento = cliente.DataNascimento,
+                Cpf = cliente.Cpf,
+                Email = cliente.Email
+            };
+
+            return clienteView;
+        }
+
+        public void Dispose()
+        {
+            _clienteContext.Dispose();
         }
     }
 }
