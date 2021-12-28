@@ -108,6 +108,34 @@ namespace gtauto_api.Repositories
             return clientesView;
         }
 
+        public List<EnderecoView> GetEnderecos(int idCliente)
+        {
+            var query = _clienteContext.Enderecos
+                        .AsNoTracking()
+                        .Where(id => id.IdCliente == idCliente)
+                        .ToList();
+                
+            var listaEnderecos = new List<EnderecoView>();
+
+            foreach (Endereco endereco in query)
+            {
+                var viewEndereco = new EnderecoView{
+                    Uf = endereco.Uf,
+                    Cidade = endereco.Cidade,
+                    Bairro = endereco.Bairro,
+                    Rua = endereco.Rua,
+                    Numero = endereco.Numero,
+                    Cep = endereco.Cep,
+                    Referencia = endereco.Referencia,
+                    Complemento = endereco.Complemento
+                };
+
+                listaEnderecos.Add(viewEndereco);
+            }
+
+            return listaEnderecos;
+        }
+
         public ClienteBasicView GetCliente(int idCliente)
         {
             Cliente cliente = _clienteContext.Clientes

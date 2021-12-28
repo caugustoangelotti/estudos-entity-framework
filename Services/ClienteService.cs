@@ -26,10 +26,20 @@ namespace gtauto_api.Services
             return listaClientes;
         }
 
+        public List<EnderecoView> GetEnderecos(int idCliente)
+        {
+            List<EnderecoView> listaEnderecos = _clienteRepository.GetEnderecos(idCliente);
+
+            if (listaEnderecos == null)
+                return null;
+
+            return listaEnderecos;
+        }
+
         public ClienteBasicView GetCliente(int idCliente)
         {
             ClienteBasicView clienteData = _clienteRepository.GetCliente(idCliente);
-            if ( clienteData == null)
+            if (clienteData == null)
                 return null;
             return clienteData;
         }

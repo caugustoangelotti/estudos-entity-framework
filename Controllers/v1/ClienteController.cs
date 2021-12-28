@@ -43,5 +43,17 @@ namespace gtauto_api.Controllers
 
             return Ok(cliente);
         }
+
+        [HttpGet]
+        [Route("api/v1/clientes/{idCliente:int}/enderecos")]
+        public ActionResult<EnderecoView> GetEnderecos(int idCliente)
+        {
+            var enderecosCliente = _clienteService.GetEnderecos(idCliente);
+
+            if ( enderecosCliente == null )
+                return NotFound("Enderecos não encontrados");
+
+            return Ok(enderecosCliente);
+        }
     }
 }
