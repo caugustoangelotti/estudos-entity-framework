@@ -36,6 +36,16 @@ namespace gtauto_api.Services
             return listaEnderecos;
         }
 
+        public List<TelefoneView> GetTelefones(int idCliente)
+        {
+            List<TelefoneView> listaTelefones = _clienteRepository.GetTelefones(idCliente);
+
+            if (listaTelefones == null)
+                return null;
+
+            return listaTelefones;
+        }
+
         public ClienteBasicView GetCliente(int idCliente)
         {
             ClienteBasicView clienteData = _clienteRepository.GetCliente(idCliente);

@@ -136,6 +136,28 @@ namespace gtauto_api.Repositories
             return listaEnderecos;
         }
 
+        public List<TelefoneView> GetTelefones(int idCliente)
+        {
+            var query = _clienteContext.Telefones
+                        .AsNoTracking()
+                        .Where(id => id.IdCliente == idCliente)
+                        .ToList();
+                
+            var listaTelefones = new List<TelefoneView>();
+
+            foreach (Telefone telefone in query)
+            {
+                var viewTelefone = new TelefoneView{
+                    NumeroTelefone = telefone.NumeroTelefone,
+                    CodigoPais = telefone.CodigoPais
+                };
+
+                listaTelefones.Add(viewTelefone);
+            }
+
+            return listaTelefones;
+        }
+
         public ClienteBasicView GetCliente(int idCliente)
         {
             Cliente cliente = _clienteContext.Clientes

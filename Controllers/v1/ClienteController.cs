@@ -38,7 +38,7 @@ namespace gtauto_api.Controllers
         {
             var cliente = _clienteService.GetCliente(idCliente);
 
-            if ( cliente == null )
+            if (cliente == null)
                 return NotFound("Cliente não encontrado");
 
             return Ok(cliente);
@@ -50,10 +50,22 @@ namespace gtauto_api.Controllers
         {
             var enderecosCliente = _clienteService.GetEnderecos(idCliente);
 
-            if ( enderecosCliente == null )
+            if (enderecosCliente == null)
                 return NotFound("Enderecos não encontrados");
 
             return Ok(enderecosCliente);
+        }
+
+        [HttpGet]
+        [Route("api/v1/clientes/{idCliente:int}/telefones")]
+        public ActionResult<TelefoneView> GetTelefones(int idCliente)
+        {
+            var listaTelefones = _clienteService.GetTelefones(idCliente);
+
+            if (listaTelefones == null)
+                return NotFound("Enderecos não encontrados");
+
+            return Ok(listaTelefones);
         }
     }
 }
