@@ -177,6 +177,33 @@ namespace gtauto_api.Repositories
 
             return clienteView;
         }
+        
+        public List<VeiculoView> GetVeiculosAlugados(int idCliente, int page, int count)
+        {
+            var queryVeiculos = (from veiculo in _clienteContext.Veiculos
+                                where veiculo.Alugueis.Any(q => q.IdCliente == idCliente)
+                                select veiculo)
+                                .AsNoTracking()
+                                .Skip((page - 1) * count)
+                                .Take(count)
+                                .ToList();
+            
+            var listaVeiculos = new List<VeiculoView>();
+
+            foreach (Veiculo veiculo in queryVeiculos)
+            {
+                var veiculoView = new VeiculoView{
+                    IdVeiculo = veiculo.IdVeiculo,
+                    Placa = veiculo.Placa,
+                    Ano = veiculo.Ano,
+                    Modelo = veiculo.Modelo,
+                    Categoria = veiculo.Categoria
+                };
+                listaVeiculos.Add(veiculoView);
+            }
+            
+            return listaVeiculos;
+        }
 
         public void Dispose()
         {

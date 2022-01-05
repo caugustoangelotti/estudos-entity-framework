@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using gtauto_api.Entities;
 using gtauto_api.InputModel;
 using gtauto_api.Services;
 using gtauto_api.ViewModel;
@@ -63,9 +64,21 @@ namespace gtauto_api.Controllers
             var listaTelefones = _clienteService.GetTelefones(idCliente);
 
             if (listaTelefones == null)
-                return NotFound("Enderecos não encontrados");
+                return NotFound("Telefones não encontrados");
 
             return Ok(listaTelefones);
+        }
+
+        [HttpGet]
+        [Route("api/v1/clientes/{idCliente:int}/alugueis")]
+        public ActionResult<VeiculoView> GetVeiculosAlugados(int idCliente, int page = 1, int count = 5)
+        {
+            var listaVeiculos = _clienteService.GetVeiculosAlugados(idCliente, page, count);
+
+            if (listaVeiculos == null)
+                return NotFound("Alugueis não encontrados");
+
+            return Ok(listaVeiculos);
         }
     }
 }

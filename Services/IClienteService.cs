@@ -11,6 +11,7 @@ namespace gtauto_api.Services
          List<ClienteBasicView> GetClientes(int page, int count);
          List<EnderecoView> GetEnderecos(int idCliente);
          List<TelefoneView> GetTelefones(int idCliente);
+         List<VeiculoView> GetVeiculosAlugados(int idCliente, int page, int count);
          ClienteBasicView GetCliente(int idCliente);
     }
 }

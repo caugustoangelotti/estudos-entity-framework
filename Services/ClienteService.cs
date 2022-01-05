@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using gtauto_api.Entities;
 using gtauto_api.InputModel;
 using gtauto_api.Repositories;
@@ -40,7 +41,7 @@ namespace gtauto_api.Services
         {
             List<TelefoneView> listaTelefones = _clienteRepository.GetTelefones(idCliente);
 
-            if (listaTelefones == null)
+            if (listaTelefones == null || !listaTelefones.Any())
                 return null;
 
             return listaTelefones;
@@ -52,6 +53,12 @@ namespace gtauto_api.Services
             if (clienteData == null)
                 return null;
             return clienteData;
+        }
+
+        public List<VeiculoView> GetVeiculosAlugados(int idCliente, int page, int count)
+        {
+            List<VeiculoView> listaVeiculos = _clienteRepository.GetVeiculosAlugados(idCliente, page, count);
+            return listaVeiculos;
         }
 
         public void Dispose()
