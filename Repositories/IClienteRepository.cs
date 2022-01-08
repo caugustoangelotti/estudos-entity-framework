@@ -12,6 +12,7 @@ namespace gtauto_api.Repositories
         List<EnderecoView> GetEnderecos(int idCliente);
         List<TelefoneView> GetTelefones(int idCliente);
         List<VeiculoView> GetVeiculosAlugados(int idCliente, int page, int count);
+        List<VeiculoView> GetVeiculosDevolvidos(int idCliente, int page, int count);
         ClienteBasicView GetCliente(int idCliente);
     }
 }

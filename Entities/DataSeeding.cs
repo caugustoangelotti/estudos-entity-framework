@@ -384,7 +384,8 @@ namespace gtauto_api.Entities
                 DataDevolucao = DateTime.Now,
                 IdFuncionario = 2,
                 IdFilial = 1,
-                IdAluguel = 2
+                IdCliente = 1,
+                IdVeiculo = 3
             };
 
             var d2 = new Devolucao{
@@ -392,7 +393,8 @@ namespace gtauto_api.Entities
                 DataDevolucao = DateTime.Now,
                 IdFuncionario = 1,
                 IdFilial = 2,
-                IdAluguel = 3
+                IdCliente = 1,
+                IdVeiculo = 4
             };
 
             listaDevolucoes.Add(d1);

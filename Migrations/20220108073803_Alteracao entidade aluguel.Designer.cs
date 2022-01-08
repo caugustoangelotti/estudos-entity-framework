@@ -10,8 +10,8 @@ using gtauto_api.Entities;
 namespace gtauto_api.Migrations
 {
     [DbContext(typeof(GtAutoEfDbContext))]
-    [Migration("20211218025232_initial")]
-    partial class initial
+    [Migration("20220108073803_Alteracao entidade aluguel")]
+    partial class Alteracaoentidadealuguel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 1,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 993, DateTimeKind.Local).AddTicks(5394),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 891, DateTimeKind.Local).AddTicks(4655),
                             IdCliente = 1,
                             IdFilial = 1,
                             IdFuncionario = 2,
@@ -68,7 +68,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 2,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5578),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(3304),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -77,7 +77,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 3,
-                            DataAluguel = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(5636),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(3352),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -116,7 +116,7 @@ namespace gtauto_api.Migrations
                         {
                             IdCliente = 1,
                             Cpf = "09758123784",
-                            DataNascimento = new DateTime(1965, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1960, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "garry@mail.com",
                             Nome = "Garry",
                             Sobrenome = "Kasparov"
@@ -125,7 +125,7 @@ namespace gtauto_api.Migrations
                         {
                             IdCliente = 2,
                             Cpf = "79857403185",
-                            DataNascimento = new DateTime(1960, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1997, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "karpov@mail.com",
                             Nome = "Anatoly",
                             Sobrenome = "Karpov"
@@ -142,7 +142,7 @@ namespace gtauto_api.Migrations
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdAluguel")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
                     b.Property<int>("IdFilial")
@@ -151,14 +151,18 @@ namespace gtauto_api.Migrations
                     b.Property<int>("IdFuncionario")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdVeiculo")
+                        .HasColumnType("int");
+
                     b.HasKey("IdDevolucao");
 
-                    b.HasIndex("IdAluguel")
-                        .IsUnique();
+                    b.HasIndex("IdCliente");
 
                     b.HasIndex("IdFilial");
 
                     b.HasIndex("IdFuncionario");
+
+                    b.HasIndex("IdVeiculo");
 
                     b.ToTable("Devolucoes");
 
@@ -166,18 +170,20 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdDevolucao = 1,
-                            DataDevolucao = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(7792),
-                            IdAluguel = 2,
+                            DataDevolucao = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(5455),
+                            IdCliente = 1,
                             IdFilial = 1,
-                            IdFuncionario = 2
+                            IdFuncionario = 2,
+                            IdVeiculo = 3
                         },
                         new
                         {
                             IdDevolucao = 2,
-                            DataDevolucao = new DateTime(2021, 12, 17, 22, 52, 31, 994, DateTimeKind.Local).AddTicks(8779),
-                            IdAluguel = 3,
+                            DataDevolucao = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(6568),
+                            IdCliente = 1,
                             IdFilial = 2,
-                            IdFuncionario = 1
+                            IdFuncionario = 1,
+                            IdVeiculo = 4
                         });
                 });
 
@@ -393,7 +399,7 @@ namespace gtauto_api.Migrations
                         {
                             IdFuncionario = 1,
                             Cpf = "65412387621",
-                            DataNascimento = new DateTime(1997, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1975, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tal@mail.com",
                             IdFilial = 2,
                             Nome = "Mikhail",
@@ -403,7 +409,7 @@ namespace gtauto_api.Migrations
                         {
                             IdFuncionario = 2,
                             Cpf = "97834268712",
-                            DataNascimento = new DateTime(1968, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1979, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ivanchuck@mail.com",
                             IdFilial = 1,
                             Nome = "Vasyl",
@@ -602,10 +608,10 @@ namespace gtauto_api.Migrations
 
             modelBuilder.Entity("gtauto_api.Entities.Devolucao", b =>
                 {
-                    b.HasOne("gtauto_api.Entities.Aluguel", "Aluguel")
-                        .WithOne("Devolucao")
-                        .HasForeignKey("gtauto_api.Entities.Devolucao", "IdAluguel")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("gtauto_api.Entities.Cliente", "Cliente")
+                        .WithMany("Devolucoes")
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("gtauto_api.Entities.Filial", "Filial")
@@ -617,6 +623,12 @@ namespace gtauto_api.Migrations
                     b.HasOne("gtauto_api.Entities.Funcionario", "Funcionario")
                         .WithMany("Devolucoes")
                         .HasForeignKey("IdFuncionario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("gtauto_api.Entities.Veiculo", "Veiculo")
+                        .WithMany("Devolucoes")
+                        .HasForeignKey("IdVeiculo")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });

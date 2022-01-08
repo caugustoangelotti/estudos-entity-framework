@@ -14,10 +14,12 @@ namespace gtauto_api.Entities
         public int IdFilial { get; set; }
         public Filial Filial { get; set; }
         public ICollection<Aluguel> Alugueis { get; set; }
+        public ICollection<Devolucao> Devolucoes { get; set; }
 
         public Veiculo()
         {
             Alugueis = new List<Aluguel>();
+            Devolucoes = new List<Devolucao>();
         }
     }
 }

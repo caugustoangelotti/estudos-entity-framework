@@ -16,6 +16,5 @@ namespace gtauto_api.Entities
         public Funcionario Funcionario { get; set; }
         public int IdFilial { get; set; }
         public Filial Filial { get; set; }
-        public Devolucao Devolucao { get; set; }
     }
 }

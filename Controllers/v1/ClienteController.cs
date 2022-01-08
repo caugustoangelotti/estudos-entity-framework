@@ -79,5 +79,17 @@ namespace gtauto_api.Controllers
 
             return Ok(listaVeiculos);
         }
+        
+        [HttpGet]
+        [Route("api/v1/clientes/{idCliente:int}/devolucoes")]
+        public ActionResult<VeiculoView> GetVeiculosDevolvidos(int idCliente, [FromQuery] int page = 1, [FromQuery] int count = 5)
+        {
+            var listaVeiculos = _clienteService.GetVeiculosDevolvidos(idCliente, page, count);
+
+            if (listaVeiculos == null)
+                return NotFound();
+
+            return Ok(listaVeiculos);
+        }
     }
 }

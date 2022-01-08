@@ -57,7 +57,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 1,
-                            DataAluguel = new DateTime(2021, 12, 22, 1, 50, 36, 862, DateTimeKind.Local).AddTicks(2016),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 891, DateTimeKind.Local).AddTicks(4655),
                             IdCliente = 1,
                             IdFilial = 1,
                             IdFuncionario = 2,
@@ -66,7 +66,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 2,
-                            DataAluguel = new DateTime(2021, 12, 22, 1, 50, 36, 863, DateTimeKind.Local).AddTicks(957),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(3304),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -75,7 +75,7 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdAluguel = 3,
-                            DataAluguel = new DateTime(2021, 12, 22, 1, 50, 36, 863, DateTimeKind.Local).AddTicks(1007),
+                            DataAluguel = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(3352),
                             IdCliente = 1,
                             IdFilial = 2,
                             IdFuncionario = 1,
@@ -140,7 +140,7 @@ namespace gtauto_api.Migrations
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdAluguel")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
                     b.Property<int>("IdFilial")
@@ -149,14 +149,18 @@ namespace gtauto_api.Migrations
                     b.Property<int>("IdFuncionario")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdVeiculo")
+                        .HasColumnType("int");
+
                     b.HasKey("IdDevolucao");
 
-                    b.HasIndex("IdAluguel")
-                        .IsUnique();
+                    b.HasIndex("IdCliente");
 
                     b.HasIndex("IdFilial");
 
                     b.HasIndex("IdFuncionario");
+
+                    b.HasIndex("IdVeiculo");
 
                     b.ToTable("Devolucoes");
 
@@ -164,18 +168,20 @@ namespace gtauto_api.Migrations
                         new
                         {
                             IdDevolucao = 1,
-                            DataDevolucao = new DateTime(2021, 12, 22, 1, 50, 36, 863, DateTimeKind.Local).AddTicks(3163),
-                            IdAluguel = 2,
+                            DataDevolucao = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(5455),
+                            IdCliente = 1,
                             IdFilial = 1,
-                            IdFuncionario = 2
+                            IdFuncionario = 2,
+                            IdVeiculo = 3
                         },
                         new
                         {
                             IdDevolucao = 2,
-                            DataDevolucao = new DateTime(2021, 12, 22, 1, 50, 36, 863, DateTimeKind.Local).AddTicks(4113),
-                            IdAluguel = 3,
+                            DataDevolucao = new DateTime(2022, 1, 8, 3, 38, 2, 892, DateTimeKind.Local).AddTicks(6568),
+                            IdCliente = 1,
                             IdFilial = 2,
-                            IdFuncionario = 1
+                            IdFuncionario = 1,
+                            IdVeiculo = 4
                         });
                 });
 
@@ -600,10 +606,10 @@ namespace gtauto_api.Migrations
 
             modelBuilder.Entity("gtauto_api.Entities.Devolucao", b =>
                 {
-                    b.HasOne("gtauto_api.Entities.Aluguel", "Aluguel")
-                        .WithOne("Devolucao")
-                        .HasForeignKey("gtauto_api.Entities.Devolucao", "IdAluguel")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("gtauto_api.Entities.Cliente", "Cliente")
+                        .WithMany("Devolucoes")
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("gtauto_api.Entities.Filial", "Filial")
@@ -615,6 +621,12 @@ namespace gtauto_api.Migrations
                     b.HasOne("gtauto_api.Entities.Funcionario", "Funcionario")
                         .WithMany("Devolucoes")
                         .HasForeignKey("IdFuncionario")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("gtauto_api.Entities.Veiculo", "Veiculo")
+                        .WithMany("Devolucoes")
+                        .HasForeignKey("IdVeiculo")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });

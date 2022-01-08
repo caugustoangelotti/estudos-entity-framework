@@ -60,6 +60,12 @@ namespace gtauto_api.Services
             return listaVeiculos;
         }
 
+        public List<VeiculoView> GetVeiculosDevolvidos(int idCliente, int page, int count)
+        {
+            List<VeiculoView> listaVeiculos = _clienteRepository.GetVeiculosDevolvidos(idCliente, page, count);
+            return listaVeiculos;
+        }
+
         public void Dispose()
         {
             _clienteRepository.Dispose();

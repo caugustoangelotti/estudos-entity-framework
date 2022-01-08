@@ -16,14 +16,15 @@ namespace gtauto_api.Entities
         public string Email { get; set; }
         public ICollection<Endereco> Enderecos { get; set; }
         public ICollection<Telefone> Telefones { get; set; }
-        [JsonIgnore]
         public ICollection<Aluguel> Alugueis { get; set; }
+        public ICollection<Devolucao> Devolucoes { get; set; }
         
         public Cliente()
         {
             Enderecos = new List<Endereco>();
             Telefones = new List<Telefone>();
             Alugueis = new List<Aluguel>();
+            Devolucoes = new List<Devolucao>();
         }
     }
 }
