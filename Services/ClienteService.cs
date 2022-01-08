@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using gtauto_api.Entities;
 using gtauto_api.InputModel;
 using gtauto_api.Repositories;
 using gtauto_api.ViewModel;
