@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gtauto_api.AutoMapper;
 using gtauto_api.Entities;
 using gtauto_api.Repositories;
 using gtauto_api.Services;
@@ -30,6 +31,7 @@ namespace gtauto_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(typeof(AutoMapperSetup));
             services.AddDbContext<GtAutoEfDbContext>(
                 options => 
                     options.UseSqlServer(Configuration.GetConnectionString("DbConnection"))
