@@ -23,6 +23,8 @@ namespace gtauto_api.AutoMapper
                 CreateMap<ClienteInput, Cliente>();
                 CreateMap<ClienteInput, Endereco>();
                 CreateMap<ClienteInput, Telefone>();
+                CreateMap<EnderecoInput, Endereco>();
+                CreateMap<TelefoneInput, Telefone>();
             #endregion
             
         }

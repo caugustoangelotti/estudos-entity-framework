@@ -1,8 +1,7 @@
-namespace gtauto_api.ViewModel
+namespace gtauto_api.InputModel
 {
-    public class EnderecoView
+    public class EnderecoInput
     {
-        public int IdEndereco { get; set; }
         public string Uf { get; set; }
         public string Cidade { get; set; }
         public string Bairro { get; set; }

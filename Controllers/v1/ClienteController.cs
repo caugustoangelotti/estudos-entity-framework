@@ -91,5 +91,29 @@ namespace gtauto_api.Controllers
 
             return Ok(listaVeiculos);
         }
+
+        [HttpPost]
+        [Route("api/v1/clientes/{idCliente:int}/enderecos")]
+        public ActionResult<EnderecoView> AddEndereco(int idCliente, EnderecoInput enderecoInputData)
+        {
+            var listaEnderecos = _clienteService.AddEndereco(idCliente, enderecoInputData);
+
+            if (listaEnderecos == null)
+                return NotFound();
+
+            return Ok(listaEnderecos);
+        }
+
+        [HttpPost]
+        [Route("api/v1/clientes/{idCliente:int}/telefones")]
+        public ActionResult<TelefoneView> AddTelefone(int idCliente, TelefoneInput telefoneInputData)
+        {
+            var listaTelefones = _clienteService.AddTelefone(idCliente, telefoneInputData);
+
+            if (listaTelefones == null)
+                return NotFound();
+
+            return Ok(listaTelefones);
+        }
     }
 }

@@ -65,7 +65,19 @@ namespace gtauto_api.Services
             List<VeiculoView> listaVeiculos = _clienteRepository.GetVeiculosDevolvidos(idCliente, page, count);
             return listaVeiculos;
         }
-
+        
+        public List<EnderecoView> AddEndereco(int idCliente , EnderecoInput enderecoInputData)
+        {
+            List<EnderecoView> listaEnderecos = _clienteRepository.AddEndereco(idCliente, enderecoInputData);
+            return listaEnderecos;
+        }
+        
+        public List<TelefoneView> AddTelefone(int idCliente , TelefoneInput telefoneInputData)
+        {
+            List<TelefoneView> listaTelefones = _clienteRepository.AddTelefone(idCliente, telefoneInputData);
+            return listaTelefones;
+        }
+        
         public void Dispose()
         {
             _clienteRepository.Dispose();

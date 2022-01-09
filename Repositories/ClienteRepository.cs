@@ -40,10 +40,10 @@ namespace gtauto_api.Repositories
         public List<ClienteBasicView> GetClientes(int page, int count)
         {
             var query = _clienteContext.Clientes
-                            .AsNoTracking()
-                            .Skip((page - 1) * count)
-                            .Take(count)
-                            .ToList();
+                        .AsNoTracking()
+                        .Skip((page - 1) * count)
+                        .Take(count)
+                        .ToList();
 
             List<ClienteBasicView> listaClientes = _mapper
                                     .Map<List<Cliente>,List<ClienteBasicView>>(query);
@@ -78,7 +78,7 @@ namespace gtauto_api.Repositories
         public ClienteBasicView GetCliente(int idCliente)
         {
             Cliente cliente = _clienteContext.Clientes
-                    .SingleOrDefault(id => id.IdCliente == idCliente);
+                            .SingleOrDefault(id => id.IdCliente == idCliente);
             
             if (cliente == null)
                 return null;
@@ -117,6 +117,56 @@ namespace gtauto_api.Repositories
             List<VeiculoView> listaVeiculos = _mapper.Map<List<Veiculo>, List<VeiculoView>>(queryVeiculos);
 
             return listaVeiculos;    
+        }
+
+        public List<EnderecoView> AddEndereco(int idCliente , EnderecoInput enderecoInputData)
+        {
+            Cliente cliente = _clienteContext.Clientes
+                            .SingleOrDefault(id => id.IdCliente == idCliente);
+            
+            if (cliente == null)
+                return null;
+            
+            Endereco enderecoDaoData = _mapper.Map<EnderecoInput, Endereco>(enderecoInputData);
+            enderecoDaoData.IdCliente = cliente.IdCliente;
+
+            cliente.Enderecos.Add(enderecoDaoData);
+            _clienteContext.SaveChanges();
+
+            var query = _clienteContext.Enderecos
+                        .AsNoTracking()
+                        .Where(id => id.IdCliente == idCliente)
+                        .ToList();
+            
+            List<EnderecoView> enderecos = _mapper.Map<List<Endereco>, List<EnderecoView>>(query);
+
+            return enderecos;
+
+        }
+
+        public List<TelefoneView> AddTelefone(int idCliente, TelefoneInput telefoneInputData)
+        {
+            Cliente cliente = _clienteContext.Clientes
+                            .SingleOrDefault(id => id.IdCliente == idCliente);
+            
+            if (cliente == null)
+                return null;
+            
+            Telefone telefoneDaoData = _mapper.Map<TelefoneInput, Telefone>(telefoneInputData);
+            telefoneDaoData.IdCliente = cliente.IdCliente;
+
+            cliente.Telefones.Add(telefoneDaoData);
+            _clienteContext.SaveChanges();
+
+            var query = _clienteContext.Telefones
+                        .AsNoTracking()
+                        .Where(id => id.IdCliente == idCliente)
+                        .ToList();
+            
+            List<TelefoneView> telefones = _mapper.Map<List<Telefone>, List<TelefoneView>>(query);
+
+            return telefones;
+
         }
 
         public void Dispose()

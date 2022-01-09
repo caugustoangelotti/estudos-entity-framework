@@ -1,9 +1,9 @@
-namespace gtauto_api.ViewModel
+namespace gtauto_api.InputModel
 {
-    public class TelefoneView
+    public class TelefoneInput
     {
-        public int IdTelefone { get; set; }
         public string NumeroTelefone { get; set; }
         public string CodigoPais { get; set; }
+
     }
 }

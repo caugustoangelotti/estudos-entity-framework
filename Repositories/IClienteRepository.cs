@@ -8,6 +8,8 @@ namespace gtauto_api.Repositories
     public interface IClienteRepository : IDisposable
     {
         ClienteView AddCliente(ClienteInput clienteInputData);
+        List<EnderecoView> AddEndereco(int idCliente , EnderecoInput enderecoInputData);
+        List<TelefoneView> AddTelefone(int idCliente , TelefoneInput telefoneInputData);
         List<ClienteBasicView> GetClientes(int page, int count);
         List<EnderecoView> GetEnderecos(int idCliente);
         List<TelefoneView> GetTelefones(int idCliente);
