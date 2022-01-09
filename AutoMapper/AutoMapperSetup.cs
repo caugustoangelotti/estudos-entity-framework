@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using gtauto_api.Entities;
 using gtauto_api.InputModel;
@@ -15,12 +16,13 @@ namespace gtauto_api.AutoMapper
                 CreateMap<Endereco, EnderecoView>();
                 CreateMap<Telefone, TelefoneView>();
                 CreateMap<Veiculo, VeiculoView>();
+                CreateMap<Cliente, ClienteBasicView>();
             #endregion
 
             #region InputToEntitie
-                 CreateMap<ClienteInput, Cliente>();
-                 CreateMap<ClienteInput, Endereco>();
-                 CreateMap<ClienteInput, Telefone>();
+                CreateMap<ClienteInput, Cliente>();
+                CreateMap<ClienteInput, Endereco>();
+                CreateMap<ClienteInput, Telefone>();
             #endregion
             
         }

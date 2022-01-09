@@ -39,29 +39,16 @@ namespace gtauto_api.Repositories
 
         public List<ClienteBasicView> GetClientes(int page, int count)
         {
-            var clientesList = _clienteContext.Clientes
+            var query = _clienteContext.Clientes
                             .AsNoTracking()
                             .Skip((page - 1) * count)
                             .Take(count)
                             .ToList();
-            
-            var clientesView = new List<ClienteBasicView>();
 
-            foreach (Cliente cliente in clientesList)
-            {
-                var clienteView = new ClienteBasicView{
-                    IdCliente = cliente.IdCliente,
-                    Nome = cliente.Nome,
-                    Sobrenome = cliente.Sobrenome,
-                    DataNascimento = cliente.DataNascimento,
-                    Cpf = cliente.Cpf,
-                    Email = cliente.Email
-                };
-                
-                clientesView.Add(clienteView);
-            }
+            List<ClienteBasicView> listaClientes = _mapper
+                                    .Map<List<Cliente>,List<ClienteBasicView>>(query);
 
-            return clientesView;
+            return listaClientes;
         }
 
         public List<EnderecoView> GetEnderecos(int idCliente)
@@ -70,26 +57,10 @@ namespace gtauto_api.Repositories
                         .AsNoTracking()
                         .Where(id => id.IdCliente == idCliente)
                         .ToList();
-                
-            var listaEnderecos = new List<EnderecoView>();
+            
+            List<EnderecoView> enderecos = _mapper.Map<List<Endereco>, List<EnderecoView>>(query);
 
-            foreach (Endereco endereco in query)
-            {
-                var viewEndereco = new EnderecoView{
-                    Uf = endereco.Uf,
-                    Cidade = endereco.Cidade,
-                    Bairro = endereco.Bairro,
-                    Rua = endereco.Rua,
-                    Numero = endereco.Numero,
-                    Cep = endereco.Cep,
-                    Referencia = endereco.Referencia,
-                    Complemento = endereco.Complemento
-                };
-
-                listaEnderecos.Add(viewEndereco);
-            }
-
-            return listaEnderecos;
+            return enderecos;
         }
 
         public List<TelefoneView> GetTelefones(int idCliente)
@@ -98,20 +69,10 @@ namespace gtauto_api.Repositories
                         .AsNoTracking()
                         .Where(id => id.IdCliente == idCliente)
                         .ToList();
-                
-            var listaTelefones = new List<TelefoneView>();
 
-            foreach (Telefone telefone in query)
-            {
-                var viewTelefone = new TelefoneView{
-                    NumeroTelefone = telefone.NumeroTelefone,
-                    CodigoPais = telefone.CodigoPais
-                };
+            List<TelefoneView> telefones = _mapper.Map<List<Telefone>, List<TelefoneView>>(query);
 
-                listaTelefones.Add(viewTelefone);
-            }
-
-            return listaTelefones;
+            return telefones;
         }
 
         public ClienteBasicView GetCliente(int idCliente)
@@ -119,17 +80,10 @@ namespace gtauto_api.Repositories
             Cliente cliente = _clienteContext.Clientes
                     .SingleOrDefault(id => id.IdCliente == idCliente);
             
-            if ( cliente == null )
+            if (cliente == null)
                 return null;
-
-            var clienteView = new ClienteBasicView{
-                IdCliente = cliente.IdCliente,
-                Nome = cliente.Nome,
-                Sobrenome = cliente.Sobrenome,
-                DataNascimento = cliente.DataNascimento,
-                Cpf = cliente.Cpf,
-                Email = cliente.Email
-            };
+            
+            ClienteBasicView clienteView = _mapper.Map<Cliente, ClienteBasicView>(cliente);
 
             return clienteView;
         }
@@ -143,21 +97,9 @@ namespace gtauto_api.Repositories
                                 .Skip((page - 1) * count)
                                 .Take(count)
                                 .ToList();
-            
-            var listaVeiculos = new List<VeiculoView>();
 
-            foreach (Veiculo veiculo in queryVeiculos)
-            {
-                var veiculoView = new VeiculoView{
-                    IdVeiculo = veiculo.IdVeiculo,
-                    Placa = veiculo.Placa,
-                    Ano = veiculo.Ano,
-                    Modelo = veiculo.Modelo,
-                    Categoria = veiculo.Categoria
-                };
-                listaVeiculos.Add(veiculoView);
-            }
-            
+            List<VeiculoView> listaVeiculos = _mapper.Map<List<Veiculo>, List<VeiculoView>>(queryVeiculos);
+
             return listaVeiculos;
         }
 
@@ -165,28 +107,16 @@ namespace gtauto_api.Repositories
         {
 
             var queryVeiculos = (from veiculo in _clienteContext.Veiculos
-                                where veiculo.Devolucoes.Any(c => c.IdCliente == idCliente)
+                                where veiculo.Devolucoes.Any(q => q.IdCliente == idCliente)
                                 select veiculo)
                                 .AsNoTracking()
                                 .Skip((page - 1) * count)
                                 .Take(count)
                                 .ToList();
 
-            var listaVeiculos = new List<VeiculoView>();
+            List<VeiculoView> listaVeiculos = _mapper.Map<List<Veiculo>, List<VeiculoView>>(queryVeiculos);
 
-            foreach (Veiculo veiculo in queryVeiculos)
-            {
-                var veiculoView = new VeiculoView{
-                    IdVeiculo = veiculo.IdVeiculo,
-                    Placa = veiculo.Placa,
-                    Ano = veiculo.Ano,
-                    Modelo = veiculo.Modelo,
-                    Categoria = veiculo.Categoria
-                };
-                listaVeiculos.Add(veiculoView);
-            }
-            
-            return listaVeiculos;
+            return listaVeiculos;    
         }
 
         public void Dispose()
